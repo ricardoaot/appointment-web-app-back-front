@@ -1,18 +1,23 @@
 import {Request, Response} from "express"
+import appointmentService from "../services/appointmentService"
 
-const getAppointmentController = (req:Request, res:Response):void => {
-    res.json({message:"Get all appointments"})
+const getAppointmentController = async (req:Request, res:Response):Promise<void> => {
+    const appointments = await appointmentService.getAppointments()
+    res.json(appointments)
 }
-const getAppointmentByIdController = (req:Request, res:Response):void => {
-    res.json({message:"Get appointment by id"})
-}
-
-const postScheduleAppointmentController = (req:Request, res:Response):void => {
-    res.json({message:"Schedule appointment"})
+const getAppointmentByIdController = async (req:Request, res:Response):Promise<void> => {
+    const appointment = await appointmentService.getAppointmentById(Number (req.params.id))
+    res.json(appointment)
 }
 
-const postCancelAppointmentController = (req:Request, res:Response):void => {
-    res.json({message:"Cancel appointment"})
+const postScheduleAppointmentController = async (req:Request, res:Response):Promise<void> => {
+    const appointmentResult = await appointmentService.postScheduleAppointment(req.body)
+    res.json(appointmentResult)
+}
+
+const postCancelAppointmentController = async (req:Request, res:Response):Promise<void> => {
+    const cancelledAppointment = await appointmentService.postCancellAppointment(Number (req.params.id))
+    res.json(cancelledAppointment)
 }
 
 const AppointmentController = {

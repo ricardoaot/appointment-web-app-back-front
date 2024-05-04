@@ -1,21 +1,31 @@
 import { Request, Response } from "express";
+import userServices from "../services/userService";
 
-const getUsersController = (req: Request, res: Response): void =>{
-    res.json({message:"Get all users"})
+const getUsersController = async (req: Request, res: Response): Promise<void> =>{
+    const users = await userServices.getUsers()
+    res.json(users)
 }
 
-const getUserByIdController = (req: Request, res: Response): void => {
-    res.json({message:"Get user by id"})
+const getUserByIdController = async (req: Request, res: Response): Promise<void> => {
+    const user = await userServices.getUserById(Number (req.params.id))
+    res.json(user)
 }
 
-const postRegisterUserController = (req: Request, res: Response): void => {
-    res.json({message:"Register user"})
+const postRegisterUserController = async (req: Request, res: Response): Promise<void> => {
+    const userRegistered = await userServices.postCreateUser(req.body)
+    res.json(userRegistered)
 }
 
-const postLoginUserController = (req: Request, res: Response): void => {
-    res.json({message:"Login user"})
+const postLoginUserController = async (req: Request, res: Response): Promise<void> => {
+    const userLoged = await userServices.postLoginUser(req.body)
+    res.json({message:"Login user", userLoged} )
 }
 
-const userController = {getUsersController, getUserByIdController, postRegisterUserController, postLoginUserController}
+const userController = {
+    getUsersController, 
+    getUserByIdController, 
+    postRegisterUserController, 
+    postLoginUserController
+}
 
 export default userController

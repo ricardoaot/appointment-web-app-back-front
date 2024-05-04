@@ -1,0 +1,22 @@
+GET http://localhost:3000/user/
+###
+GET http://localhost:3000/user/2
+###
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "userName": "Pepito@Pepito.com",
+  "password": "101010"
+}
+
+### Registrar usuarios
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+  "name": "Pepito 4",
+  "email": "Pepito@Pepito.com",
+  "birthdate": "10-10-2010",
+  "nDni": "101010"
+}
