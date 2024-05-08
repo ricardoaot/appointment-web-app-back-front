@@ -1,25 +1,22 @@
 import {ICredentials} from "../interfaces/credentialInterface";
 import ICredentialsDto from "../dto/credentialDto";
 
+import { CredentialRepository } from "../config/data-source";
+
 var credentialTable: ICredentials[] = [];
 
-const postCreateCredentials = (credentialObject:ICredentialsDto ) => {
+const postCreateCredentials = async (credentialObject:ICredentialsDto ) => {
     const {userName, password} = credentialObject
-    const credential_id = credentialTable.length+1
-    const newCredential = 
-    {
-        credentialId: credential_id , userName, password
-    }
-    credentialTable.push(newCredential)
-    return credential_id
+    const newCredential = {userName, password}
+    CredentialRepository.create(newCredential)
+    const credentialSaved = await CredentialRepository.save(newCredential)
+    return credentialSaved.credentialId
 }
 
 const getValidateCredentials = async (credentialObject:ICredentialsDto): Promise<number | undefined> => {
     const {userName, password} = credentialObject
-   
-    const credential = credentialTable.find( 
-        credential => credential.userName === userName && credential.password === password 
-    ) 
+    const credential = await CredentialRepository.findOneBy({userName, password})
+    
     return credential?.credentialId
 }
 

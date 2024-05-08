@@ -1,5 +1,7 @@
 import appointmentDto from "../dto/appointmentDto";
 import appointmentInterface from "../interfaces/appointmentInterface";
+import { AppointmentRepository } from "../config/data-source";
+import { AppointmentEntity } from "../entities/appointmentEntity";
 
 var appointmentTable: appointmentInterface[] = [
     {   "id":1,
@@ -10,28 +12,34 @@ var appointmentTable: appointmentInterface[] = [
     }
 ];
 
-const getAppointments = async () : Promise<undefined | appointmentInterface[]> => {
+const getAppointments = async () : Promise<undefined | AppointmentEntity[]> => {
+    const appointmentTable = AppointmentRepository.find()
     return appointmentTable
 }
 
-const getAppointmentById = async (id: number) : Promise<undefined | appointmentInterface> => {
-    return appointmentTable.find(appointment => appointment.id === id)
+const getAppointmentById = async (id: number) : Promise <null | AppointmentEntity> => {
+    const appointmentTable = AppointmentRepository.findOneBy({appointmentId:id})
+    return appointmentTable
 }
 
-const postScheduleAppointment = async (appointmentObject: appointmentDto) : Promise<number | undefined> => {
+const postScheduleAppointment = async (appointmentObject: appointmentDto) : Promise<AppointmentEntity | undefined> => {
+    
     //console.log(appointmentObject)
-    const appointmentId = appointmentTable.length+1
     const {date, time, userId} = appointmentObject
-    return appointmentTable.push({id:appointmentId,date, time, userId, status:"pending"})
-    //return undefined
+    const newAppointment = {date, time, userId, status:"pending"}
+    const newAppointmentEntity = AppointmentRepository.create(newAppointment)
+    const newAppointmentEntitySaved = await AppointmentRepository.save(newAppointmentEntity)
+    return newAppointmentEntitySaved
 }
 
 const postCancellAppointment = async (id:number) : Promise<number | undefined> => {
-    const cancelledAppointment = appointmentTable.find(appointment => appointment.id === id)
+    const cancelledAppointment = await AppointmentRepository.findOneBy({appointmentId:id})
+
     if(cancelledAppointment){
          cancelledAppointment.status = "cancelled"
+         AppointmentRepository.save(cancelledAppointment)
     }
-    return cancelledAppointment?.id
+    return cancelledAppointment?.appointmentId
 }
 
 export default {getAppointments, getAppointmentById, postScheduleAppointment, postCancellAppointment}

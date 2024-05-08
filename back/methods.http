@@ -1,13 +1,15 @@
 GET http://localhost:3000/user/
 ###
 GET http://localhost:3000/user/2
-###
+
+### Login usuarios
+
 POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-  "userName": "Pepito@Pepito.com",
-  "password": "101010"
+  "userName": "juan@mjuan.com",
+  "password": "1234"
 }
 
 ### Registrar usuarios
@@ -15,8 +17,22 @@ POST http://localhost:3000/user/register
 Content-Type: application/json
 
 {
-  "name": "Pepito 4",
-  "email": "Pepito@Pepito.com",
-  "birthdate": "10-10-2010",
-  "nDni": "101010"
+  "name": "pepito",
+  "email": "pepito@pepito.com",
+  "birthdate": "12-10-2010",
+  "nDni": "1234"
 }
+
+### Schedule Appointment
+POST http://localhost:3000/appointment/schedule
+Content-Type: application/json
+
+{
+    "date": "2024-05-07",
+    "time": "16:00",
+    "userId": 1
+}
+
+
+### Cancel Appointment
+PUT http://localhost:3000/appointment/cancel/1

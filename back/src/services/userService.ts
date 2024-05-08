@@ -3,13 +3,21 @@ import userDto from "../dto/userDto";
 import credentialDto from "../dto/credentialDto";
 import credentialService from "../services/credentialService";
 
+import { UserRepository, CredentialRepository, AppointmentRepository } from "../config/data-source";
+import { UserEntity } from "../entities/userEntity";
+import { CredentialEntity } from "../entities/credentialEntity";
+
+//DTO: data transfer object
+
 var userTable: userInterface[] = [];
-const getUsers = async () : Promise<undefined | userInterface[]> => {
+const getUsers = async () : Promise<undefined | UserEntity[]> => {
+    const userTable = await UserRepository.find()
     return userTable
 }
 
-const getUserById = async (id: number) : Promise<undefined | userInterface> => {
-    return userTable.find(user => user.userId === id)
+const getUserById = async (id: number) : Promise<null | UserEntity> => {
+    const userTable = await UserRepository.findOneBy({userId: id})
+    return userTable
 }
 
 const postLoginUser = async (credentialObject: credentialDto) : Promise<number | undefined> => {
@@ -17,16 +25,16 @@ const postLoginUser = async (credentialObject: credentialDto) : Promise<number |
     const credentialId = await credentialService.getValidateCredentials({userName, password})
     return credentialId
 }
-const postCreateUser = async (userObject: userDto) : Promise<number | undefined> => {
+const postCreateUser = async (userObject: userDto) : Promise<undefined | UserEntity> => {
     const {name, email, birthdate, nDni} = userObject
-    const userId = userTable.length+1
     const credentialId = await credentialService.postCreateCredentials({userName: email, password: nDni})
     const newUser = 
     {
-        userId, name, email, birthdate, nDni, credentialId
+         name, email, birthdate, nDni, credentialId
     }
-    userTable.push(newUser)
-    return userId
+    const newUserEntity = UserRepository.create(newUser);
+    const newUserEntitySaved = await UserRepository.save(newUserEntity)
+    return newUserEntitySaved
 }
 
 export default {getUsers, getUserById, postCreateUser, postLoginUser}
