@@ -26,8 +26,8 @@ export class UserEntity {
 
     @OneToMany(
         () => AppointmentEntity,
-        (appointment) => appointment.userColumn)
-    appointmentsColumn: AppointmentEntity[]
+        (appointment) => appointment.userId)
+    appointments: AppointmentEntity[]
 
     @OneToOne(() => CredentialEntity)
     @JoinColumn()

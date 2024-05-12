@@ -1,6 +1,6 @@
 import appointmentDto from "../dto/appointmentDto";
 import appointmentInterface from "../interfaces/appointmentInterface";
-import { AppointmentRepository } from "../config/data-source";
+import { AppointmentRepository, UserRepository } from "../config/data-source";
 import { AppointmentEntity } from "../entities/appointmentEntity";
 
 var appointmentTable: appointmentInterface[] = [
@@ -22,14 +22,17 @@ const getAppointmentById = async (id: number) : Promise <null | AppointmentEntit
     return appointmentTable
 }
 
-const postScheduleAppointment = async (appointmentObject: appointmentDto) : Promise<AppointmentEntity | undefined> => {
+const postScheduleAppointment = async (appointmentObject: appointmentDto)/*  : Promise<AppointmentEntity | undefined> */ => {
     
-    //console.log(appointmentObject)
     const {date, time, userId} = appointmentObject
-    const newAppointment = {date, time, userId, status:"pending"}
-    const newAppointmentEntity = AppointmentRepository.create(newAppointment)
-    const newAppointmentEntitySaved = await AppointmentRepository.save(newAppointmentEntity)
-    return newAppointmentEntitySaved
+    const userFound = await UserRepository.findOneBy({userId})
+    if(userFound){
+        const newAppointment = {date, time, status:"pending", userId:userFound }
+        const newAppointmentEntity = AppointmentRepository.create(newAppointment)  
+        const newAppointmentEntitySaved = await AppointmentRepository.save(newAppointmentEntity)
+        return newAppointmentEntitySaved
+    }
+
 }
 
 const postCancellAppointment = async (id:number) : Promise<number | undefined> => {

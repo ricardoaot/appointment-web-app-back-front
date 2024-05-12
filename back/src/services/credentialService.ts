@@ -10,7 +10,7 @@ const postCreateCredentials = async (credentialObject:ICredentialsDto ) => {
     const newCredential = {userName, password}
     CredentialRepository.create(newCredential)
     const credentialSaved = await CredentialRepository.save(newCredential)
-    return credentialSaved.credentialId
+    return credentialSaved
 }
 
 const getValidateCredentials = async (credentialObject:ICredentialsDto): Promise<number | undefined> => {

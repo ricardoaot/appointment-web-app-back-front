@@ -16,12 +16,14 @@ export class AppointmentEntity {
 
     @Column({length: 100})
     status: string;
-    
 
-    @ManyToOne(
-        () => UserEntity, 
-        (user) => user.appointmentsColumn)
-    userColumn: UserEntity
+     @ManyToOne(
+         () => UserEntity, 
+         (user) => user.appointments)
+     userId: UserEntity
+
+    //@Column()
+    //userId: number
 
 }
 

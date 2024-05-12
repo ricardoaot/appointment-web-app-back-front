@@ -7,18 +7,30 @@ const getUsersController = async (req: Request, res: Response): Promise<void> =>
 }
 
 const getUserByIdController = async (req: Request, res: Response): Promise<void> => {
-    const user = await userServices.getUserById(Number (req.params.id))
-    res.json(user)
+    try {
+        const user = await userServices.getUserById(Number (req.params.id))
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(404).json({message:"User not found"})
+    }
 }
 
 const postRegisterUserController = async (req: Request, res: Response): Promise<void> => {
-    const userRegistered = await userServices.postCreateUser(req.body)
-    res.json(userRegistered)
+    try {            
+        const userRegistered = await userServices.postCreateUser(req.body)
+        res.status(201).json(userRegistered)
+    } catch (error) {
+        res.status(400).json({message:"Incorrect data"})
+    }
 }
 
 const postLoginUserController = async (req: Request, res: Response): Promise<void> => {
-    const userLoged = await userServices.postLoginUser(req.body)
-    res.json({message:"Login user", userLoged} )
+    //try {
+        const user = await userServices.postLoginUser(req.body)
+        res.status(200).json({login:true, user} )
+    //} catch (error) {
+      //  res.status(400).json({message:"incorrect credentials", error} )
+    //}
 }
 
 const userController = {
