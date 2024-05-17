@@ -1,0 +1,7 @@
+.navbarStyle{
+    display: flex;
+    background-color: rebeccapurple;
+}
+.navbarTitle{
+    color: rgb(255, 1, 1);
+}

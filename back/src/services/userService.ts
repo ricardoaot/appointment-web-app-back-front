@@ -31,8 +31,7 @@ const postLoginUser = async (credentialObject: credentialDto) : Promise<UserEnti
     const foundUser = await UserRepository
     .createQueryBuilder('users')
     .leftJoinAndSelect('users.credential', 'credential')
-//    .addSelect('usersAlias.userId AS alias1')
-//    .addSelect('usersAlias.name AS nombre')
+
     .select([
         'users.userId', 
         'users.name', 
