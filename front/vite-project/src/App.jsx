@@ -1,4 +1,5 @@
-//import './App.css'
+import './App.css'
+import Appointments from './views/Appointments.jsx'
 import Home from './views/Home.jsx'
 
 function App() {
@@ -6,8 +7,7 @@ function App() {
   return (
     <>
       <div>
-        Hola
-        <Home />
+        <Appointments />
       </div>
     </>
   )
