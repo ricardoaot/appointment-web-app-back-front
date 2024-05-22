@@ -8,7 +8,7 @@ export class AppointmentEntity {
     @PrimaryGeneratedColumn()
     appointmentId: number
     
-    @Column()
+    @Column({type: "date"})
     date: Date;
 
     @Column({type: "time"})

@@ -1,15 +1,24 @@
 import myAppointmentsData from "../helpers/myAppointmentsData"
 import Appointment from "../components/Appointment"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const Appointments = () => {
 
-    const [appointment, setAppointment] = useState(myAppointmentsData)
+    const [appointments, setAppointment] = useState([])
+    
+    useEffect(() => {
+        axios.get("http://localhost:3000/appointment")
+        .then((response) => {
+            setAppointment(response.data)
+        })
+    }, [])
+ 
     return (
         <>
             <h1>Appointments</h1>
             {
-                myAppointmentsData.map( (appointment) => {
+                appointments.map( (appointment) => {
                     return <Appointment key={appointment.appointmentId} appointment={appointment} />
                 })    
             }
