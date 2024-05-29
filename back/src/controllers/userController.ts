@@ -16,21 +16,23 @@ const getUserByIdController = async (req: Request, res: Response): Promise<void>
 }
 
 const postRegisterUserController = async (req: Request, res: Response): Promise<void> => {
-    try {            
+    try {         
+        console.log(req.body)   
         const userRegistered = await userServices.postCreateUser(req.body)
         res.status(201).json(userRegistered)
+        console.log(userRegistered)
     } catch (error) {
         res.status(400).json({message:"Incorrect data"})
     }
 }
 
 const postLoginUserController = async (req: Request, res: Response): Promise<void> => {
-    //try {
+    try {
         const user = await userServices.postLoginUser(req.body)
         res.status(200).json({login:true, user} )
-    //} catch (error) {
-      //  res.status(400).json({message:"incorrect credentials", error} )
-    //}
+    } catch (error) {
+        res.status(400).json({message:"incorrect credentials", error} )
+    }
 }
 
 const userController = {
