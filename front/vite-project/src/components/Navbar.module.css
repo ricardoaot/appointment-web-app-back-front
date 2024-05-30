@@ -1,7 +1,37 @@
-.navbarStyle{
+.navbarStyle {
+    background-color: #333;
+    padding: 10px;
     display: flex;
-    background-color: rebeccapurple;
+    justify-content: space-between;
+    align-items: center;
 }
-.navbarTitle{
-    color: rgb(255, 1, 1);
+
+.navbarStyle div {
+    display: flex;
+    align-items: center;
+}
+
+.navbarTitle {
+    color: white;
+    margin-right: 20px;
+    font-size: 24px;
+}
+
+#navbarTitleId {
+    color: #ccc;
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.navbarStyle a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.navbarStyle a:hover {
+    background-color: #555;
 }
