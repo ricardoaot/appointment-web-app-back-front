@@ -1,15 +1,27 @@
 import axios from 'axios'
 import { useState , useEffect} from 'react'
 import validate from '../helpers/validateForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAppointment } from '../redux/userAppointmentsSlice'
+import { fetchUser } from '../redux/userSlice'
+import sawl from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
 const Login = ()=>{
 
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState({
+        userName    : 'jose@chanchito.com',  
+        password : '45107639'
+    })
     const [errors, setErrors] = useState({})
     const [Blur, setBlur] = useState({})
-    
+    const userData2 = useSelector((state) => state.userState.user)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     useEffect(() => {
         setErrors(validate(userData))
+        //console.log(userData2)
     },[userData])
 
     const handleOnChange = (event) => {
@@ -27,14 +39,35 @@ const Login = ()=>{
 
     const handleOnSubmit = (event) => {
         event.preventDefault()
-        console.log(userData)
+        //console.log(userData)
 
-        if(errors.email || errors.password){
+        if(errors.userName || errors.password){
             return false
         }
+        //console.log(userData)
         axios.post("http://localhost:3000/user/login", userData)
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err))
+        .then(res => {
+            //console.log(res.data)
+            dispatch(fetchUser(res.data))
+            sawl.fire({
+                icon: 'success',
+                title: 'Login Successful',
+                timer: 2000
+            })
+            .then(() => navigate('/appointments'))
+            //console.log(res.data)
+
+        })
+        .catch(err => 
+            {
+                console.log(err)
+                sawl.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    timer: 2000
+                })
+            }
+        )
     }
 
     return (
@@ -42,17 +75,17 @@ const Login = ()=>{
             <h1>Login</h1>
             <form onSubmit={handleOnSubmit}>
                 <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" 
-                        onChange={handleOnChange}
+                    <label htmlFor="userName">User Name</label>
+                    <input type="email" name="userName" id="userName" 
+                        onChange={handleOnChange} value={userData.userName}
                         onBlur={handleOnBlur} />
-                    {errors.email && Blur.email && <p>{errors.email}</p>}
+                    {errors.userName && Blur.userName && <p>{errors.userName}</p>}
                 </div>
 
                 <div>
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" 
-                    onChange={handleOnChange}
+                    onChange={handleOnChange} value={userData.password}
                     onBlur={handleOnBlur} />
                     {errors.password && Blur.password && <p>{errors.password}</p>}
                 </div>

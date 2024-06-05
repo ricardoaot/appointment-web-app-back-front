@@ -13,6 +13,7 @@
 import axios from "axios";
 import validate from "../helpers/validateForm";
 import { useEffect, useState } from "react";
+import "./Register.css"
 const Register = () => {
 
     const [userData, setUserData] = useState({})

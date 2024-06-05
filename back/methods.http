@@ -7,7 +7,7 @@ POST http://localhost:3000/user/register
 Content-Type: application/json
 
 {
-  "name": "pepito",
+  "name": "pepito2",
   "email": "pepito@pepito.com",
   "birthdate": "12-10-2010",
   "nDni": "1234"
@@ -18,8 +18,8 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-  "userName": "pepito@pepito.com",
-  "password": "1234"
+  "userName": "ricardoaot@gmail.com",
+  "password": "45107639"
 }
 
 ### Get Appointments
