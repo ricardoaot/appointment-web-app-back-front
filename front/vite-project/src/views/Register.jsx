@@ -14,6 +14,7 @@ import axios from "axios";
 import validate from "../helpers/validateForm";
 import { useEffect, useState } from "react";
 import "./Register.css"
+import apiService from "../services/apiServices";
 const Register = () => {
 
     const [userData, setUserData] = useState({})
@@ -53,8 +54,7 @@ const Register = () => {
 
         console.log(objeto)
         console.log(userData)
-        
-        axios.post("http://localhost:3000/user/register", userData)
+        apiService.registerUser(userData)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     }

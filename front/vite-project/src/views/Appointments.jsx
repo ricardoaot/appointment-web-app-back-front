@@ -1,11 +1,12 @@
 import myAppointmentsData from "../helpers/myAppointmentsData";
-import Appointment from "../components/Appointment";
+import AppointmentRow from "../components/AppointmentRow";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchAppointment } from "../redux/userAppointmentsSlice";
 import swal from 'sweetalert2';
+import apiService from "../services/apiServices";
 
 const Appointments = () => {
     const dispatch = useDispatch();
@@ -24,10 +25,7 @@ const Appointments = () => {
         
         if (user.login) {
             const userId = Number(user.user.userId)
-            const url = `http://localhost:3000/user/${userId}`
-            console.log(url)
-            console.log(userId)
-            axios.get(url)
+            apiService.getUserById(userId)
                 .then((response) => {
                     console.log(response.data.appointments);
                     dispatch(fetchAppointment(response.data.appointments));
@@ -43,7 +41,7 @@ const Appointments = () => {
 
     const handleCancelOnClick = (id) => {
         console.log(id);
-        axios.put(`http://localhost:3000/appointment/cancel/${id}`)
+        apiService.cancelAppointment(id)
             .then((response) => {
                 swal.fire({
                     icon: 'success',
@@ -64,7 +62,7 @@ const Appointments = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3000/appointment/schedule', newAppointment)
+        apiService.scheculeAppointment(newAppointment)
             .then((response) => {
                 swal.fire({
                     icon: 'success',
@@ -82,6 +80,7 @@ const Appointments = () => {
     return (
         <>
             <h1>Appointments</h1>
+            <h2>New Appointment</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Title:</label>
@@ -112,10 +111,12 @@ const Appointments = () => {
                 </div>
                 <button type="submit">Create Appointment</button>
             </form>
+
+            <h2>My Appointments</h2>
             {/*  <pre>{JSON.stringify(appointments, null, 2)}</pre>  */}
             {
                 appointments && appointments.map((appointment) => {
-                    return <Appointment key={appointment.appointmentId} appointment={appointment} handleCancelOnClick={handleCancelOnClick} />;
+                    return <AppointmentRow key={appointment.appointmentId} appointment={appointment} handleCancelOnClick={handleCancelOnClick} />;
                 })
             }
         </>

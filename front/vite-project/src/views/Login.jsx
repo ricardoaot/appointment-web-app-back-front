@@ -6,6 +6,7 @@ import { fetchAppointment } from '../redux/userAppointmentsSlice'
 import { fetchUser } from '../redux/userSlice'
 import sawl from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import apiService from '../services/apiServices'
 
 const Login = ()=>{
 
@@ -44,8 +45,8 @@ const Login = ()=>{
         if(errors.userName || errors.password){
             return false
         }
-        //console.log(userData)
-        axios.post("http://localhost:3000/user/login", userData)
+
+        apiService.loginUser(userData)
         .then(res => {
             //console.log(res.data)
             dispatch(fetchUser(res.data))

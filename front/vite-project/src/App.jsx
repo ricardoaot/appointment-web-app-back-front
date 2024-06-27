@@ -3,7 +3,7 @@ import Appointments from './views/Appointments.jsx'
 import Home from './views/Home.jsx'
 import Register from './views/Register.jsx'
 import Login from './views/Login.jsx'
-import AppointmentParams from './views/AppointmentParams.jsx'
+import AppointmentParams from './views/AppointmentDetail.jsx'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar.jsx'
 
@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <div>
         <Routes>
           <Route path="/" element={<Home />} />

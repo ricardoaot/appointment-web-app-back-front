@@ -1,12 +1,13 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import apiService from "../services/apiServices"
 const AppointmentParams = () => {
     const {id} = useParams()
     const [appointment, setAppointment] = useState({})
     const navigate = useNavigate()
     useEffect(() => {
-        axios.get(`http://localhost:3000/appointment/${id}`)
+        apiService.getAppointmentById(id)
         .then((response) => {
             console.log(response.data)
             setAppointment(response.data)
