@@ -24,7 +24,13 @@ const apiService = {
         return response;
     },
 
-    scheculeAppointment: async (newAppointment) => {
+    scheduleAppointment: async (newAppointment) => {
+        console.log("Linea 28",newAppointment)
+        /*newAppointment = {
+            "date": "2024-05-29",
+            "time": "12:00",
+            "userId": "2"
+        }*/
         const url = `${API_URL}/appointment/schedule`
         const response = await axios.post(url, newAppointment)
         return response;
@@ -32,7 +38,7 @@ const apiService = {
 
     cancelAppointment: async (appointmentId) => {
         const url = `${API_URL}/appointment/cancel/${appointmentId}`
-        const response = await axios.get(url);
+        const response = await axios.put(url);
         return response;
     },
     getAppointmentById: async (id) => {
@@ -40,8 +46,6 @@ const apiService = {
         const response = await axios.get(url);
         return response;
     }
-
-
 }
 
 export default apiService

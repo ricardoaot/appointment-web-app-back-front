@@ -7,19 +7,25 @@ import { useNavigate } from "react-router-dom";
 import { fetchAppointment } from "../redux/userAppointmentsSlice";
 import swal from 'sweetalert2';
 import apiService from "../services/apiServices";
+import { Button } from "../components/ui/button";
+import { AppointmentTable } from "@/components/AppointmentTable";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Appointments = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [newAppointment, setNewAppointment] = useState({
-        title: '',
-        date: '',
-        time: ''
-    });
+
     const appointments = useSelector((state) => state.userAppointmentsState) ?? [];
     const user = useSelector((state) => state.userState);
     console.log(appointments);
     console.log(user)
+
+    const [newAppointment, setNewAppointment] = useState({
+        title: '',
+        date: '',
+        time: '',
+        userId: Number(user?.user?.userId),
+    });
 
     const fetchAppointments = () => {
         
@@ -62,7 +68,7 @@ const Appointments = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        apiService.scheculeAppointment(newAppointment)
+        apiService.scheduleAppointment(newAppointment)
             .then((response) => {
                 swal.fire({
                     icon: 'success',
@@ -79,46 +85,71 @@ const Appointments = () => {
 
     return (
         <>
-            <h1>Appointments</h1>
-            <h2>New Appointment</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title:</label>
-                    <input
-                        type="text"
-                        name="title"
-                        value={newAppointment.title}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div>
-                    <label>Date:</label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={newAppointment.date}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div>
-                    <label>Time:</label>
-                    <input
-                        type="time"
-                        name="time"
-                        value={newAppointment.time}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <button type="submit">Create Appointment</button>
-            </form>
+            <div className="grid grid-cols-1 md:grid-cols-3 m-8 gap-y-4">
+                
+                
 
-            <h2>My Appointments</h2>
-            {/*  <pre>{JSON.stringify(appointments, null, 2)}</pre>  */}
-            {
-                appointments && appointments.map((appointment) => {
-                    return <AppointmentRow key={appointment.appointmentId} appointment={appointment} handleCancelOnClick={handleCancelOnClick} />;
-                })
-            }
+                <Card className="h-full col-span-1 m-2">
+                    <CardHeader>
+                        <CardTitle>New Appointment</CardTitle>
+                        <CardDescription>
+                        Lorem ipsum dolor sit amet consectetur.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className=' items-center w-full'>
+
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label>Title:</label>
+                            <input
+                                type="text"
+                                name="title"
+                                value={newAppointment.title}
+                                onChange={handleInputChange}
+                                />
+                        </div>
+                        <div>
+                            <label>Date:</label>
+                            <input
+                                type="date"
+                                name="date"
+                                value={newAppointment.date}
+                                onChange={handleInputChange}
+                                />
+                        </div>
+                        <div>
+                            <label>Time:</label>
+                            <input
+                                type="time"
+                                name="time"
+                                value={newAppointment.time}
+                                onChange={handleInputChange}
+                                />
+                        </div>
+                        <button type="submit">Create Appointment</button>
+                    </form>
+
+                    </CardContent>
+                </Card>
+
+                {/*  <pre>{JSON.stringify(appointments, null, 2)}</pre>  */}
+                
+
+                <Card className="h-full  col-span-2 m-2">
+                    <CardHeader>
+                        <CardTitle>My Appointments</CardTitle>
+                        <CardDescription>
+                        Lorem ipsum dolor sit amet consectetur.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className=' items-center w-full'>
+                        <AppointmentTable 
+                            appointments={appointments} 
+                            handleCancelOnClick={handleCancelOnClick} 
+                        />
+                    </CardContent>
+                </Card>
+            </div>
         </>
     );
 };

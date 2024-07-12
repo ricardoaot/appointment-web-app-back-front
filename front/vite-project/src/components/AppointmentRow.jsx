@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import styles from "./Appointment.module.css"
+import { Button } from "./ui/button"
 const Appointment = ({ appointment, handleCancelOnClick }) => {
     return (
         <div className={styles.appointmentCard}>
@@ -7,7 +8,7 @@ const Appointment = ({ appointment, handleCancelOnClick }) => {
             <h3>Date: {appointment.date}</h3>
             <h3>Time: {appointment.time}</h3>
             <h3>Status: {appointment.status}</h3>
-            <button onClick={() => handleCancelOnClick(appointment.appointmentId)}>Cancel</button>
+            <Button variant="destructive" onClick={() => handleCancelOnClick(appointment.appointmentId)}>Cancel</Button>
         </div>
     )
 }
