@@ -20,10 +20,10 @@ const Appointments = () => {
     console.log(appointments);
     console.log(user)
 
-    const [newAppointment, setNewAppointment] = useState({
-        title: '',
+    const [newAppointment, setNewAppointment] = useState({        
         date: '',
         time: '',
+        description: '',
         userId: Number(user?.user?.userId),
     });
 
@@ -45,6 +45,8 @@ const Appointments = () => {
         fetchAppointments();
     }, []);
 
+
+
     const handleCancelOnClick = (id) => {
         console.log(id);
         apiService.cancelAppointment(id)
@@ -60,7 +62,9 @@ const Appointments = () => {
                 console.log(error);
             });
     };
-
+    const handleDetailOnClick = (id) => {
+        navigate(`/appointment/${id}`);
+    }
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewAppointment({ ...newAppointment, [name]: value });
@@ -100,11 +104,11 @@ const Appointments = () => {
 
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label>Title:</label>
+                            <label>Description:</label>
                             <input
                                 type="text"
-                                name="title"
-                                value={newAppointment.title}
+                                name="description"
+                                value={newAppointment.description}
                                 onChange={handleInputChange}
                                 />
                         </div>
@@ -146,6 +150,8 @@ const Appointments = () => {
                         <AppointmentTable 
                             appointments={appointments} 
                             handleCancelOnClick={handleCancelOnClick} 
+
+                            handleDetailOnClick={handleDetailOnClick} 
                         />
                     </CardContent>
                 </Card>

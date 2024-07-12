@@ -25,21 +25,24 @@ function Navbar() {
     return (   
         <>
             <nav className={styles.navbarStyle} >
-                <div>
-                    <h1 className={styles.navbarTitle}>Navbar</h1>
-                </div>
-                <div>
+                <div className="grid w-full grid-cols-2">
+                    <div className="px-8  col-span-1">
+                        <h1 className={styles.navbarTitle}>Appointment App</h1>
+                    </div>
+                    <div className="flex justify-between col-span-1">
 
-                    {user.login ? (<>
-                        <span className={styles.navbarTitle}>Bienvenido {user.user.name}</span>
-                        <Link to="/appointments">Appointments</Link>                
-                        <Link onClick={handleLogout} >Logout</Link>
-                    </>):(<>
-                        <Link to="/login">Login</Link>
-                        <Link to="/register">User Register</Link>                    
-                    </>)}
+                        {user.login ? (<>
+                            <span className="text-gray-50">Welcome back <b>{user.user.name}</b></span>
+                            <Link to="/appointments">Appointments</Link>                
+                            <Link onClick={handleLogout} >Logout</Link>
+                        </>):(<>
+                            <Link to="/login">Login</Link>
+                            <Link to="/register">User Register</Link>                    
+                        </>)}
 
+                    </div>
                 </div>
+                
             </nav>
         </>
     )

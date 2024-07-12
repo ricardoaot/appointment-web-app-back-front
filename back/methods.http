@@ -32,7 +32,8 @@ Content-Type: application/json
 {
     "date": "2024-05-28",
     "time": "12:00",
-    "userId": "2"
+    "userId": "2",
+    "description":"prueba"
 }
 
 

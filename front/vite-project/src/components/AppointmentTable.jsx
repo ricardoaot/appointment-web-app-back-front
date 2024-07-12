@@ -12,14 +12,19 @@ import {
 import { Button } from "./ui/button"
 import { Link } from "react-router-dom"
 
-export function AppointmentTable({appointments, handleCancelOnClick}) {
+export function AppointmentTable(
+  {appointments, handleCancelOnClick, handleDetailOnClick}
+) {
+  
+  
+
     return (
         <Table>
           <TableCaption>A list of your recent appointments.</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">ID</TableHead>
-              <TableHead>Title</TableHead>
+              <TableHead>Description</TableHead>
               <TableHead>Date & Time</TableHead>
               <TableHead className="text-center">Status</TableHead>
               <TableHead className="text-center">Actions</TableHead>
@@ -30,18 +35,16 @@ export function AppointmentTable({appointments, handleCancelOnClick}) {
             {appointments.map((appointment) => (
               <TableRow key={'appointmentTableRow_' + appointment.appointmentId}>
                 <TableCell className="font-medium">
-                    <Link to={`/appointment/${appointment.appointmentId}`}> 
-                        View Detail ID:{appointment.appointmentId}
-                    </Link>
+                  {appointment.appointmentId}
                 </TableCell>
-                <TableCell className="text-left">{appointment.title}</TableCell>
+                <TableCell className="text-left">{appointment.description}</TableCell>
                 <TableCell>{appointment.date + ' - ' + appointment.time}</TableCell>
                 <TableCell className="text-center">{appointment.status}</TableCell>
                 <TableCell className="text-center flex items-center justify-center gap-4">
                     <Button 
                         variant="destructive" onClick={() => handleCancelOnClick(appointment.appointmentId)}
                     >Cancel</Button>
-                    <Button variant="default">View Details</Button>
+                    <Button variant="default" onClick={() => handleDetailOnClick(appointment.appointmentId)}>View Details</Button>
                 </TableCell>
               </TableRow>
             ))}

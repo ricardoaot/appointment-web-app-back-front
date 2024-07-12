@@ -8,7 +8,7 @@ var appointmentTable: appointmentInterface[] = [
         "date": "2022-10-10", 
         "time": "10:00", 
         "userId": 1, 
-        "status": "pending"
+        "status": "pending",
     }
 ];
 
@@ -24,10 +24,10 @@ const getAppointmentById = async (id: number) : Promise <null | AppointmentEntit
 
 const postScheduleAppointment = async (appointmentObject: appointmentDto)/*  : Promise<AppointmentEntity | undefined> */ => {
     
-    const {date, time, userId} = appointmentObject
+    const {date, time, userId, description} = appointmentObject
     const userFound = await UserRepository.findOneBy({userId})
     if(userFound){
-        const newAppointment = {date, time, status:"pending", userId:userFound }
+        const newAppointment = {date, time, description, status:"pending", userId:userFound }
         const newAppointmentEntity = AppointmentRepository.create(newAppointment)  
         const newAppointmentEntitySaved = await AppointmentRepository.save(newAppointmentEntity)
         return newAppointmentEntitySaved

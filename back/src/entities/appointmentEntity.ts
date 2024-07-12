@@ -7,6 +7,9 @@ export class AppointmentEntity {
 
     @PrimaryGeneratedColumn()
     appointmentId: number
+
+    @Column({length: 500, nullable: true})
+    description: string;
     
     @Column({type: "date"})
     date: Date;
@@ -17,10 +20,10 @@ export class AppointmentEntity {
     @Column({length: 100})
     status: string;
 
-     @ManyToOne(
-         () => UserEntity, 
-         (user) => user.appointments)
-     userId: UserEntity
+    @ManyToOne(
+        () => UserEntity, 
+        (user) => user.appointments)
+    userId: UserEntity
 
     //@Column()
     //userId: number
