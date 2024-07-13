@@ -11,7 +11,7 @@ import apiService from '../services/apiServices'
 const Login = ()=>{
 
     const [userData, setUserData] = useState({
-        userName    : 'jose@chanchito.com',  
+        userName    : 'ricardoaot@gmail.com',  
         password : '45107639'
     })
     const [errors, setErrors] = useState({})

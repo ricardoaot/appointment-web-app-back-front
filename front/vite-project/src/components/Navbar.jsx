@@ -25,19 +25,30 @@ function Navbar() {
     return (   
         <>
             <nav className={styles.navbarStyle} >
-                <div className="grid w-full grid-cols-2">
-                    <div className="px-8  col-span-1">
+                <div className="grid w-full grid-cols-4 py-3">
+                    <div className="flex justify-start items-center ml-8 px-4 gap-4  col-span-2">
                         <h1 className={styles.navbarTitle}>Appointment App</h1>
+                        
+                        <Link to="/" >
+                            Home
+                        </Link>
+
+                        {user.login ? (<>
+                            <Link to="/appointments">My Appointments</Link>   
+                        </>):(<>
+                                             
+                        </>)}
+
                     </div>
-                    <div className="flex justify-between col-span-1">
+                    <div className="flex justify-end items-center gap-4 mr-8 px-4 col-span-2">
 
                         {user.login ? (<>
                             <span className="text-gray-50">Welcome back <b>{user.user.name}</b></span>
-                            <Link to="/appointments">Appointments</Link>                
+
                             <Link onClick={handleLogout} >Logout</Link>
                         </>):(<>
-                            <Link to="/login">Login</Link>
-                            <Link to="/register">User Register</Link>                    
+                            <Link to="/login">Sign In</Link>
+                            <Link to="/register">Sign Up</Link>                    
                         </>)}
 
                     </div>

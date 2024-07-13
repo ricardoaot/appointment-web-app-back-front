@@ -1,5 +1,9 @@
 {
   "devDependencies": {
     "@types/morgan": "^1.9.9"
+  },
+  "dependencies": {
+    "react-slick": "^0.30.2",
+    "slick-carousel": "^1.8.1"
   }
 }
