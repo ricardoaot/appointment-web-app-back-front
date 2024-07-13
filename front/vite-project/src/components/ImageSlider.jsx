@@ -7,11 +7,15 @@ import 'slick-carousel/slick/slick-theme.css';
 
 
 const images = [
-   { src: 'https://static.wixstatic.com/media/8f1601_3d459feaa29c4c0f989f2c48980e5fa0~mv2.png/v1/fill/w_381,h_707,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/heartbeat%202024%20instagramstory.png', alt:'Baile 5'}, 
+  
+  { src: 'https://i.pinimg.com/originals/76/44/5e/76445eb9adabf04a3669d4d304802591.jpg', alt:'Baile 5'}, 
    
   { src: 'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=709,h=709,fit=crop/YBgyGg78D6T5LNkg/bbf24-ig-post-AVLNrzob7jc79Ovn.png', alt: 'Baile 1' },
 
+  { src: 'https://i.pinimg.com/originals/ef/79/69/ef796910932c8fd0a6003ddafe130929.jpg', alt:'Baile 5'}, 
+ 
   { src: 'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=709,h=709,fit=crop/YBgyGg78D6T5LNkg/instagram-fiesta-de-espana-AVLJaMKWjBur5lln.jpg', alt: 'Baile 3' },
+  
 ];
 
 const images_horizontal = [
@@ -27,6 +31,7 @@ const ImageSlider = () => {
     dots: true,
     infinite: true,
     speed: 500,
+    //fade: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -38,8 +43,8 @@ const ImageSlider = () => {
     <>
         <Slider {...settings}>
             {images.map((image, index) => (
-                <div key={index}>
-                <img src={image.src} alt={image.alt} className="w-full h-64 object-cover rounded-lg shadow-lg" />
+                <div key={index} className="w-full flex justify-center">
+                  <img src={image.src} alt={image.alt} className="w-auto h-[500px] mx-auto object-cover rounded-lg shadow-lg" />
                 </div>
             ))}
         </Slider>

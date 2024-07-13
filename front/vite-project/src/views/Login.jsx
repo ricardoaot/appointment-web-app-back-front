@@ -7,7 +7,7 @@ import { fetchUser } from '../redux/userSlice'
 import sawl from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import apiService from '../services/apiServices'
-
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 const Login = ()=>{
 
     const [userData, setUserData] = useState({
@@ -73,27 +73,37 @@ const Login = ()=>{
 
     return (
         <>
-            <h1>Login</h1>
-            <form onSubmit={handleOnSubmit}>
-                <div>
-                    <label htmlFor="userName">User Name</label>
-                    <input type="email" name="userName" id="userName" 
-                        onChange={handleOnChange} value={userData.userName}
-                        onBlur={handleOnBlur} />
-                    {errors.userName && Blur.userName && <p>{errors.userName}</p>}
-                </div>
+            <Card className="h-full w-[400px] m-8 mx-auto">
+                <CardHeader>
+                    <CardTitle>Sign In</CardTitle>
+                    <CardDescription>
+                        Welcome back, please field in your credentials.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className=' items-center w-full'>
 
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" 
-                    onChange={handleOnChange} value={userData.password}
-                    onBlur={handleOnBlur} />
-                    {errors.password && Blur.password && <p>{errors.password}</p>}
-                </div>
-                <div>
-                    <button type="submit">Login</button>
-                </div>
-            </form>
+                    <form onSubmit={handleOnSubmit}>
+                        <div>
+                            <label htmlFor="userName">User Name</label>
+                            <input type="email" name="userName" id="userName" 
+                                onChange={handleOnChange} value={userData.userName}
+                                onBlur={handleOnBlur} />
+                            {errors.userName && Blur.userName && <p>{errors.userName}</p>}
+                        </div>
+
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <input type="password" name="password" id="password" 
+                            onChange={handleOnChange} value={userData.password}
+                            onBlur={handleOnBlur} />
+                            {errors.password && Blur.password && <p>{errors.password}</p>}
+                        </div>
+                        <div>
+                            <button type="submit">Login</button>
+                        </div>
+                    </form>
+                </CardContent>
+            </Card>
         </>
     )
 }

@@ -27,9 +27,9 @@ function Navbar() {
             <nav className={styles.navbarStyle} >
                 <div className="grid w-full grid-cols-4 py-3">
                     <div className="flex justify-start items-center ml-8 px-4 gap-4  col-span-2">
-                        <h1 className={styles.navbarTitle}>Appointment App</h1>
+                        <h1 className={styles.navbarTitle}>Dance Booking App</h1>
                         
-                        <Link to="/" >
+                        <Link to="/" className="ml-5" >
                             Home
                         </Link>
 

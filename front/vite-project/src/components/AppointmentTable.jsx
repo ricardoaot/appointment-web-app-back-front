@@ -20,7 +20,7 @@ export function AppointmentTable(
 
     return (
         <Table>
-          <TableCaption>A list of your recent appointments.</TableCaption>
+          <TableCaption>A list of your recent records.</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">ID</TableHead>

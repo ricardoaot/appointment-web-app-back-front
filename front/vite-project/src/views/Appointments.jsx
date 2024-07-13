@@ -95,7 +95,7 @@ const Appointments = () => {
 
                 <Card className="h-full col-span-1 m-2">
                     <CardHeader>
-                        <CardTitle>New Appointment</CardTitle>
+                        <CardTitle>New Booking</CardTitle>
                         <CardDescription>
                         Lorem ipsum dolor sit amet consectetur.
                         </CardDescription>
@@ -103,15 +103,7 @@ const Appointments = () => {
                     <CardContent className=' items-center w-full'>
 
                     <form onSubmit={handleSubmit}>
-                        <div>
-                            <label>Description:</label>
-                            <input
-                                type="text"
-                                name="description"
-                                value={newAppointment.description}
-                                onChange={handleInputChange}
-                                />
-                        </div>
+                        
                         <div>
                             <label>Date:</label>
                             <input
@@ -130,18 +122,24 @@ const Appointments = () => {
                                 onChange={handleInputChange}
                                 />
                         </div>
+                        <div>
+                            <label>Description:</label>
+                            <input
+                                type="text"
+                                name="description"
+                                value={newAppointment.description}
+                                onChange={handleInputChange}
+                                />
+                        </div>
                         <button type="submit">Create Appointment</button>
                     </form>
 
                     </CardContent>
-                </Card>
-
-                {/*  <pre>{JSON.stringify(appointments, null, 2)}</pre>  */}
-                
+                </Card>                
 
                 <Card className="h-full  col-span-2 m-2">
                     <CardHeader>
-                        <CardTitle>My Appointments</CardTitle>
+                        <CardTitle>My Bookings</CardTitle>
                         <CardDescription>
                         Lorem ipsum dolor sit amet consectetur.
                         </CardDescription>

@@ -5,13 +5,15 @@ import "./Register.css"
 import apiService from "../services/apiServices";
 import ImageSlider from "@/components/ImageSlider";
 import sawl from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
 
     const [userData, setUserData] = useState({})
     const [errors, setErrors] = useState({})
     const [Blur, setBlur] = useState({})
-
+    const navigate = useNavigate()
+    
     useEffect(() => {
         setErrors(validate(userData))
     }, [userData])
@@ -76,7 +78,7 @@ const Register = () => {
                     Explore our classes and book a place right now. ¡Let's dance!
                 </p>
             </div>
-            <div className="m-8 grid grid-cols-2" >
+            <div className="m-8 grid grid-cols-2 max-w-5xl mx-auto items-center" >
                 <div className="w-full col-span-1">
                     <ImageSlider />
                 </div>
